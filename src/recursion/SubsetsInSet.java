@@ -8,9 +8,16 @@ public class SubsetsInSet {
 		set.add(5);
 		set.add(3);
 		set.add(1);
-		set.add(4);
 		
-		getSubsetsOfSet(set);
+		ArrayList<ArrayList<Integer>> allSubsets = rGetSubsetsOfSet(set, 0);
+		
+		// Print
+		for(ArrayList<Integer> subset: allSubsets) {
+			for(Integer number: subset) {
+				System.out.print(number);
+			}
+			System.out.println();
+		}
 	}
 	
 	// Iterative approach
@@ -43,5 +50,29 @@ public class SubsetsInSet {
 			}
 			System.out.println();
 		}
+	}
+	
+	private static ArrayList<ArrayList<Integer>> rGetSubsetsOfSet(ArrayList<Integer> set, int index) {
+		ArrayList<ArrayList<Integer>> allSubsets;
+		
+		if(set.size() == index) {
+			allSubsets = new ArrayList<ArrayList<Integer>>();
+			allSubsets.add(new ArrayList<Integer>()); // Base case with empty set
+		}
+		else {
+			allSubsets = rGetSubsetsOfSet(set, index + 1);
+			int first = set.get(index);
+			ArrayList<ArrayList<Integer>> addedSubsets = new ArrayList<ArrayList<Integer>>();
+			
+			for(ArrayList<Integer> subset: allSubsets) {
+				ArrayList<Integer> addedSubset = new ArrayList<Integer>(subset);
+				addedSubset.add(first);
+				addedSubsets.add(addedSubset);
+			}
+			
+			allSubsets.addAll(addedSubsets);
+		}
+		
+		return allSubsets;
 	}
 }
