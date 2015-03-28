@@ -3,16 +3,29 @@ package sorting;
 public class MergeSort {
 	public static void main(String [] args) {
 		int[] array = new int[]{5, 1, 3, 8, 10, 4, 2, 6, 2, 11, 7};
-		array = mergeSort(array);
+		String s = "aebdc";
 		
-		for(int i = 0; i < array.length; i++) {
-			System.out.print(array[i] + ", ");
+		char[] content = s.toCharArray();
+		int[] contentVals = new int[content.length];
+		
+		for(int i = 0; i < content.length; i++) {
+			contentVals[i] = (int)content[i];
+		}
+		
+		mergeSort(contentVals);
+		
+		for(int i = 0; i < content.length; i++) {
+			content[i] = (char)contentVals[i];
+		}
+		
+		for(int i = 0; i < content.length; i++) {
+			System.out.print(content[i] + ", ");
 		}
 	}
 	
-	private static int[] mergeSort(int[] array) {
+	private static void mergeSort(int[] array) {
 		if(array.length <= 1) {
-			return array;
+			return;
 		}
 		
 		int[] leftArray = new int[array.length/2];
@@ -29,8 +42,8 @@ public class MergeSort {
 		}
 		
 		// Sort each of the halves
-		leftArray = mergeSort(leftArray);
-		rightArray = mergeSort(rightArray);
+		mergeSort(leftArray);
+		mergeSort(rightArray);
 		
 		int l = 0;
 		int r = 0;
@@ -60,7 +73,5 @@ public class MergeSort {
 			r++;
 			a++;
 		}
-		
-		return array;
 	}
 }
